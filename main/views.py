@@ -27,6 +27,7 @@ def home(request):  # pake filter contains
 
         }}
         ORDER BY asc(?rank)
+        LIMIT 200
         """
 
     qres = graph.query(query)
