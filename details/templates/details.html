@@ -23,7 +23,7 @@
       <!-- <div style="height: 50vh; width: 40vw; background-color: aqua;"></div> -->
       <div class="row text-center">
         <div class="col">
-          <h1>{{row.title}}</h1>
+          <h1>#{{row.rank}} - {{row.title}}</h1>
         </div>
       </div>
       <br/>
@@ -37,14 +37,6 @@
           <table class="table">
             <tbody>
                 <tr>
-                    <th>Title</th>
-                    <td>{{ row.title }}</td>
-                </tr>
-                <tr>
-                    <th>Rank</th>
-                    <td>{{ row.rank }}</td>
-                </tr>
-                <tr>
                     <th>Channel Type</th>
                     <td>{{ row.channel_type }}</td>
                 </tr>
@@ -54,7 +46,7 @@
                 </tr>
                 <tr>
                     <th>Country</th>
-                    <td>{{ row.country }}</td>
+                    <td><a href="">{{ row.country }}</td>
                 </tr>
                 <tr>
                     <th>Category</th>
