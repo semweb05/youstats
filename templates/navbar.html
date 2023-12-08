@@ -1,0 +1,107 @@
+<nav
+  class="navbar navbar-expand-md navbar-dark sticky-top navbar-light bg-dark"
+>
+  <div style="cursor:default; user-select:none" class="container-fluid">
+    <a  style="user-select:none" class="navbar-brand mb-0 h1" href="/main"> YouStats</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a style="user-select:none;"  class="nav-link" href="/ranking/subs">Subscribers Ranking</a>
+        </li>
+        <li class="nav-item">
+          <a style="user-select:none"  class="nav-link" href="/ranking/views">Viewers Ranking</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" action="/search" id="search-form">
+        <div class="row g-2">
+          <div style="user-select:none"  class="col">
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Title"
+            />
+          </div>
+          <div style="user-select:none"  class="col-md-2">
+            <input
+              class="form-control"
+              type="text"
+              id="year"
+              name="year"
+              placeholder="Year"
+            />
+          </div>
+          <div style="user-select:none"  class="col-md-auto">
+            <select style="width:150px" class="form-select" id="genre" name="genre">
+              <option value="" selected>Country</option>
+              <option value="afghanistan">Afghanistan</option>
+              <option value="angola">Angola</option>
+              <option value="arab">Arab</option>
+              <option value="argentina">Argentina</option>
+              <option value="australia">Australia</option>
+              <option value="barbados">Barbados</option>
+              <option value="brazil">Brazil</option>
+              <option value="canada">Canada</option>
+              <option value="chile">Chile</option>
+              <option value="columbia">Columbia</option>
+              <option value="cuba">Cuba</option>
+              <option value="egypt">Egypt</option>
+              <option value="france">France</option>
+              <option value="germany">Germany</option>
+              <option value="india">India</option>
+              <option value="indonesia">Indonesia</option>
+              <option value="japan">Japan</option>
+              <option value="united states">United States</option>
+              <option value="western">Venezuela</option>
+            </select>
+          </div>
+          <div style="user-select:none"  class="col-md-auto">
+            <select style="width:150px" class="form-select" id="type" name="type">
+              <option value="" selected>Type</option>
+              <option value="music">Music</option>
+              <option value="comedy">Comedy</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="education">Education</option>
+              <option value="games">Games</option>
+              <option value="people">People</option>
+            </select>
+          </div>
+          <div style="user-select:none"  class="col-md-auto">
+            <input class="btn btn-outline-light" type="submit" value="Search" />
+          </div>
+        </div>
+      </form>
+    </div>
+</nav>
+<script>
+  window.onload = function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const title = urlParams.get('title')
+    const year = urlParams.get('year')
+    const genre = urlParams.get('genre')
+    const type = urlParams.get('type')
+
+    document.getElementById("title").value = title;
+    document.getElementById("year").value = year;
+    if (genre){
+      document.getElementById("genre").value = genre;
+    }
+    if (type){
+      document.getElementById("type").value = type;
+    }
+  }
+</script>
