@@ -54,6 +54,10 @@ def details(request, ytb):
             "video_views_for_the_last_30_days": row.video_views_for_the_last_30_days,
             "video_views_rank": row.video_views_rank,
             "created_date": row.created_date,
+            # "highest_monthly_earnings": row.highest_monthly_earnings,
+            # "highest_yearly_earnings": row.highest_yearly_earnings,
+            # "lowest_monthly_earnings": row.lowest_monthly_earnings,
+            # "lowest_yearly_earnings": row.lowest_yearly_earnings,
             "subscribers_for_last_30_days": row.subscribers_for_last_30_days,
         })
 

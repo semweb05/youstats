@@ -34,17 +34,8 @@
               placeholder="Title"
             />
           </div>
-          <div style="user-select:none"  class="col-md-2">
-            <input
-              class="form-control"
-              type="text"
-              id="year"
-              name="year"
-              placeholder="Year"
-            />
-          </div>
           <div style="user-select:none"  class="col-md-auto">
-            <select style="width:150px" class="form-select" id="genre" name="genre">
+            <select style="width:150px" class="form-select" id="country" name="country">
               <option value="" selected>Country</option>
               <option value="afghanistan">Afghanistan</option>
               <option value="angola">Angola</option>
@@ -91,14 +82,12 @@
     const urlParams = new URLSearchParams(queryString);
 
     const title = urlParams.get('title')
-    const year = urlParams.get('year')
-    const genre = urlParams.get('genre')
+    const country = urlParams.get('country')
     const type = urlParams.get('type')
 
     document.getElementById("title").value = title;
-    document.getElementById("year").value = year;
-    if (genre){
-      document.getElementById("genre").value = genre;
+    if (country){
+      document.getElementById("country").value = country;
     }
     if (type){
       document.getElementById("type").value = type;
