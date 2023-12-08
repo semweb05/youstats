@@ -19,26 +19,46 @@
   <body>
     {% include 'navbar.html' %}
     <table class="table">
+      <br />
+      <div class="row text-center">
+        <div class="col">
+          {% if 'subs' in request.path %}
+          <h1>Top 100 Subscribers Ranking</h1>
+          {% elif 'views' in request.path %}
+          <h1>Top 100 Video Views Ranking</h1>
+          {% endif %}
+        </div>
+      </div>
+      <br />
       <thead>
         <tr>
          
           <th scope="col">Rank</th>
           <th scope="col">Title</th>
-          <th scope="col">Subscribers</th>
           <th scope="col">Channel Type</th>
+          {% if 'subs' in request.path %}
+          <th scope="col">Subscribers</th>
+          <th scope="col">Subscribers for the Last 30 Days</th>
+          {% elif 'views' in request.path %}
           <th scope="col">Video Views</th>
+          <th scope="col">Video Views for the Last 30 Days</th>
+          {% endif %}    
           <th scope="col">Created Date</th>
         </tr>
       </thead>
       {% for row in rdf_data %}
       <tbody>
         <tr>
-         
           <td>{{forloop.counter}}</td>
           <td><a href="/details/{{row.uri}}">{{row.title}}</a></td>
-          <td>{{row.subscribers}}</td>
           <td>{{row.channel_type}}</td>
+          {% if 'subs' in request.path %}
+          <td>{{row.subscribers}}</td>
+          <td>{{row.subscribers_for_last_30_days}}</td>
+          {% elif 'views' in request.path %}
           <td>{{row.video_views}}</td>
+          <td>{{row.video_views_for_the_last_30_days}}</td>
+          {% endif %}
           <td>{{row.created_date}}</td>
           {% endfor %}
         </tr>
