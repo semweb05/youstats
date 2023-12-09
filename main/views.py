@@ -4,6 +4,7 @@ from graph_loader import GraphLoader
 import sys
 from SPARQLWrapper import SPARQLWrapper, JSON
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 
@@ -71,14 +72,13 @@ def home(request):
         results = sparql.query().convert()
 
         wikidata_id = results['results']['bindings'][0]['country']['value'].split('/')[-1]
-        print(wikidata_id)
-        print(row.country)
+
 
         res.append({
             "uri": row.uri.split('/')[-1],
             "title": row.title,
             "rank": row.rank,
-            "subscribers": row.subscribers,
+            "subscribers": int(float(row.subscribers)),
             "channel_type": row.channel_type,
             "country": row.country,
             "wikidata_id": wikidata_id,
