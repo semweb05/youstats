@@ -18,6 +18,7 @@
 
   <body>
     {% include 'navbar.html' %}
+    {% load humanize %}
     <br />
     {% for row in rdf_data %}
     <div class="container">
@@ -43,7 +44,7 @@
                 </tr>
                 <tr>
                     <th>Subscribers</th>
-                    <td>{{ row.subscribers }}</td>
+                    <td>{{ row.subscribers|intcomma }}</td>
                 </tr>
                 <tr>
                     <th>Country</th>
@@ -59,11 +60,11 @@
                 </tr>
                 <tr>
                     <th>Video Views</th>
-                    <td>{{ row.video_views }}</td>
+                    <td>{{ row.video_views|intcomma }}</td>
                 </tr>
                 <tr>
                     <th>Video Views (Last 30 Days)</th>
-                    <td>{{ row.video_views_for_the_last_30_days }}</td>
+                    <td>{{ row.video_views_for_the_last_30_days|intcomma }}</td>
                 </tr>
                 <tr>
                     <th>Video Views Rank</th>
@@ -73,7 +74,7 @@
                     <th>Created Date</th>
                     <td>{{ row.created_date }}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th>Highest Monthly Earnings</th>
                     <td>{{ row.highest_monthly_earnings }}</td>
                 </tr>
@@ -88,10 +89,10 @@
                 <tr>
                   <th>Lowest Yearly Earnings</th>
                   <td>{{ row.lowest_yearly_earnings }}</td>
-              </tr>
+              </tr> -->
                 <tr>
                     <th>Subscribers (Last 30 Days)</th>
-                    <td>{{ row.subscribers_for_last_30_days }}</td>
+                    <td>{{ row.subscribers_for_last_30_days|intcomma }}</td>
                 </tr>                
             </tbody>
           </table>

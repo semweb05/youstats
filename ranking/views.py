@@ -37,9 +37,9 @@ def rank_by_subscribers(request):  # pake filter contains
             "uri": row.uri.split('/')[-1],
             "title": row.title,
             "rank": row.rank,
-            "subscribers": row.subscribers,
+            "subscribers": int(float(row.subscribers)),
             "channel_type": row.channel_type,
-            "subscribers_for_last_30_days": row.subscribers_for_last_30_days,
+            "subscribers_for_last_30_days": int(float(row.subscribers_for_last_30_days)),
             "created_date": row.created_date
         })
 
@@ -72,9 +72,9 @@ def rank_by_viewers(request):  # pake filter contains
             "uri": row.uri.split('/')[-1],
             "title": row.title,
             "rank": row.rank,
-            "video_views": row.video_views,
+            "video_views": int(float(row.video_views)),
             "channel_type": row.channel_type,
-            "video_views_for_the_last_30_days": row.video_views_for_the_last_30_days,
+            "video_views_for_the_last_30_days": int(float(row.video_views_for_the_last_30_days)),
             "created_date": row.created_date
         })
 

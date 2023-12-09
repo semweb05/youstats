@@ -18,6 +18,7 @@
   </head>
   <body>
     {% include 'navbar.html' %}
+    {% load humanize %}
     <table class="table">
       <br />
       <div class="row text-center">
@@ -53,11 +54,11 @@
           <td><a href="/details/{{row.uri}}">{{row.title}}</a></td>
           <td>{{row.channel_type}}</td>
           {% if 'subs' in request.path %}
-          <td>{{row.subscribers}}</td>
-          <td>{{row.subscribers_for_last_30_days}}</td>
+          <td>{{row.subscribers|intcomma}}</td>
+          <td>{{row.subscribers_for_last_30_days|intcomma}}</td>
           {% elif 'views' in request.path %}
-          <td>{{row.video_views}}</td>
-          <td>{{row.video_views_for_the_last_30_days}}</td>
+          <td>{{row.video_views|intcomma}}</td>
+          <td>{{row.video_views_for_the_last_30_days|intcomma}}</td>
           {% endif %}
           <td>{{row.created_date}}</td>
           {% endfor %}
