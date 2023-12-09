@@ -13,7 +13,7 @@ prefix = """
 PREFIX : <http://localhost:8000/> 
 """
 
-
+@cache_page(60 * 60 * 24)
 def home(request):
     graph = GraphLoader().graph
 
