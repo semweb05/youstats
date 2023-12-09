@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <th>Country</th>
-                    <td><a href="#">{{ row.country }}</td>
+                    <td><a href="https://www.wikidata.org/wiki/{{ wikidata_id }}" target="_blank">{{ row.country }}</td>
                 </tr>
                 <tr>
                     <th>Category</th>
@@ -85,6 +85,10 @@
                     <th>Lowest Monthly Earnings</th>
                     <td>{{ row.lowest_monthly_earnings }}</td>
                 </tr>
+                <tr>
+                  <th>Lowest Yearly Earnings</th>
+                  <td>{{ row.lowest_yearly_earnings }}</td>
+              </tr>
                 <tr>
                     <th>Subscribers (Last 30 Days)</th>
                     <td>{{ row.subscribers_for_last_30_days }}</td>
