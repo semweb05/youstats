@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from graph_loader import GraphLoader
 import sys
 from SPARQLWrapper import SPARQLWrapper, JSON
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>
 PREFIX wdv: <http://www.wikidata.org/value/>
 """
 
-
+@cache_page(60 * 60 * 24)
 def details(request, ytb):
     graph = GraphLoader().graph
     query = f"""
