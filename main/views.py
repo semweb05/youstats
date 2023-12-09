@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from graph_loader import GraphLoader
 import sys
 from SPARQLWrapper import SPARQLWrapper, JSON
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -12,38 +13,84 @@ PREFIX : <http://localhost:8000/>
 """
 
 
-def home(request):  # pake filter contains
+def home(request):
     graph = GraphLoader().graph
 
     query = prefix + """
-            SELECT DISTINCT ?uri ?rank ?title ?subscribers ?video_views ?channel_type ?created_date 
+            SELECT DISTINCT ?uri ?rank ?title ?subscribers ?country ?channel_type ?created_date 
             WHERE {{
                 ?uri :Title ?title ;
                 :rank ?rank ;
                 :subscribers ?subscribers ;
                 :channel_type ?channel_type ;
-                :video_views ?video_views ;
+                :Country ?country ;
                 :created_date ?created_date .
-
-        }}
-        ORDER BY asc(?rank)
-        LIMIT 200
+            }}
+            ORDER BY asc(?rank)
         """
 
     qres = graph.query(query)
+    total_results = list(qres)
+
+    # Number of items to show per page
+    items_per_page = 10
+    paginator = Paginator(total_results, items_per_page)
+
+    # Get the current page number from the request's GET parameters
+    page = request.GET.get('page', 1)
+
+    try:
+        # Get the page of items
+        current_page = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        current_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver the last page of results.
+        current_page = paginator.page(paginator.num_pages)
+
     res = []
-    for row in qres:
+    for row in current_page.object_list:
+        country_name = row.country
+
+        # Query to retrieve the Wikidata QID for a given country name
+        wikidata_query = f"""
+            SELECT DISTINCT ?country ?countryLabel
+            WHERE {{
+                ?country wdt:P31 wd:Q6256;  # Instance of country
+                rdfs:label ?countryLabel.
+                FILTER(LANG(?countryLabel) = "en")
+                FILTER regex(?countryLabel, "{country_name}","i")
+            }}
+        """
+
+        # Execute the Wikidata Query
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+        sparql.setQuery(wikidata_query)
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+
+        wikidata_id = results['results']['bindings'][0]['country']['value'].split('/')[-1]
+        print(wikidata_id)
+        print(row.country)
+
         res.append({
             "uri": row.uri.split('/')[-1],
             "title": row.title,
             "rank": row.rank,
             "subscribers": row.subscribers,
             "channel_type": row.channel_type,
-            "video_views": row.video_views,
+            "country": row.country,
+            "wikidata_id": wikidata_id,
             "created_date": row.created_date
         })
 
-    context = {'rdf_data': res}
+    context = {
+        'rdf_data': res,
+        'wikidata_id': wikidata_id,
+        'paginator': paginator,
+        'current_page': current_page,
+    }
 
     return render(request, 'main/index.html', context)
 
